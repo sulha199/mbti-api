@@ -2,8 +2,8 @@
 
 namespace app\controllers\api;
 
-use app\models\Participant;
 use Yii;
+use app\models\Participant;
 
 class ParticipantController extends \yii\rest\ActiveController
 
