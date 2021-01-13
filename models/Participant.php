@@ -17,7 +17,7 @@ use Yii;
 class Participant extends \yii\db\ActiveRecord
 {
     use \mootensai\relation\RelationTrait;
-    
+
     /**
      * {@inheritdoc}
      */
@@ -49,6 +49,22 @@ class Participant extends \yii\db\ActiveRecord
             'email' => 'Email',
             'timestamp' => 'Timestamp',
         ];
+    }
+
+    public function calculatePerspectiveFromAnswers() {
+        $answers = $this->participantAnswers;
+        $perspectiveScore = new ParticipantPerspective();
+
+        foreach ($answers as $answer) {
+            $question = $answer->question;
+            $meaning = $answer->score > 4 ? $question->meaning : str_replace($question->meaning, '', $question->dimension);
+            $perspectiveScoreKey = strtolower($question->dimension)."_".strtolower($meaning);
+            $perspectiveScore->$perspectiveScoreKey += abs($answer->score - 4);
+        }
+
+        $perspectiveScore->summary = $perspectiveScore->calculateSummary();
+
+        return $perspectiveScore;
     }
 
     /**

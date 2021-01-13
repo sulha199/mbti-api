@@ -10,7 +10,7 @@ use Yii;
  * @property int $id
  * @property int $participant_id
  * @property int $question_id
- * @property int $answer
+ * @property int $score
  *
  * @property Participant $participant
  * @property Question $question
@@ -31,8 +31,8 @@ class ParticipantAnswer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['participant_id', 'question_id', 'answer'], 'required'],
-            [['participant_id', 'question_id', 'answer'], 'integer'],
+            [['participant_id', 'question_id', 'score'], 'required'],
+            [['participant_id', 'question_id', 'score'], 'integer'],
             [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => Participant::className(), 'targetAttribute' => ['participant_id' => 'id']],
             [['question_id'], 'exist', 'skipOnError' => true, 'targetClass' => Question::className(), 'targetAttribute' => ['question_id' => 'id']],
         ];
@@ -47,7 +47,7 @@ class ParticipantAnswer extends \yii\db\ActiveRecord
             'id' => 'ID',
             'participant_id' => 'Participant ID',
             'question_id' => 'Question ID',
-            'answer' => 'Answer',
+            'score' => 'Score',
         ];
     }
 
