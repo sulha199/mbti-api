@@ -18,17 +18,12 @@ class ParticipantController extends \yii\rest\ActiveController
             $model->loadAll(Yii::$app->request->post()) 
             && $model->saveAll()
         ) {
-            $perspective = $model->calculatePerspectiveFromAnswers();
-            $model->link('participantPerspectives', $perspective);
-            $perspective->save();
-            $response = $model->getAttributesWithRelated();
-            $response['participantPerspectives'] = [ $perspective->attributes ];
-            return $response;
+            return $model->getAttributesWithRelated();
         }   
     }
 
     public function actionPerspective(string $email) {
-        $model = Participant::find()->where([ 'email' => $email])->orderBy('id desc')->with('participantPerspectives')->one();
+        $model = Participant::find()->where([ 'email' => $email])->orderBy('id desc')->with('participantPerspective')->one();
         return $model->getAttributesWithRelated();
     }
 }

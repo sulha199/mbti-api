@@ -74,6 +74,12 @@ class ParticipantPerspective extends \yii\db\ActiveRecord
         return $this->hasOne(Participant::className(), ['id' => 'participant_id']);
     }
 
+    public function beforeSave($insert)
+    {
+        $this->summary = $this->calculateSummary();
+        return parent::beforeSave($insert);
+    }
+
     public function calculateSummary() {
         return ($this->ei_i > $this->ei_e ? 'I' : 'E').
             ($this->sn_n > $this->sn_s ? 'N' : 'S').

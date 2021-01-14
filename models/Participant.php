@@ -51,6 +51,19 @@ class Participant extends \yii\db\ActiveRecord
         ];
     }
 
+    public function afterSave($insert, $changedAttributes) {
+        $perspective = $this->calculatePerspectiveFromAnswers();
+        $this->link('participantPerspective', $perspective);
+        $perspective->save();
+        
+        $newData = $this->getAttributesWithRelatedAsPost();
+        $newData['ParticipantPerspective'] = $perspective->attributes;
+        $this->loadAll($newData); 
+
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+
     public function calculatePerspectiveFromAnswers() {
         $answers = $this->participantAnswers;
         $perspectiveScore = new ParticipantPerspective();
@@ -61,8 +74,6 @@ class Participant extends \yii\db\ActiveRecord
             $perspectiveScoreKey = strtolower($question->dimension)."_".strtolower($meaning);
             $perspectiveScore->$perspectiveScoreKey += abs($answer->score - 4);
         }
-
-        $perspectiveScore->summary = $perspectiveScore->calculateSummary();
 
         return $perspectiveScore;
     }
@@ -78,12 +89,12 @@ class Participant extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[ParticipantPerspectives]].
+     * Gets query for [[ParticipantPerspective]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getParticipantPerspectives()
+    public function getParticipantPerspective()
     {
-        return $this->hasMany(ParticipantPerspective::className(), ['participant_id' => 'id']);
+        return $this->hasOne(ParticipantPerspective::className(), ['participant_id' => 'id']);
     }
 }
