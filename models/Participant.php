@@ -55,7 +55,7 @@ class Participant extends \yii\db\ActiveRecord
         $perspective = $this->calculatePerspectiveFromAnswers();
         $this->link('participantPerspective', $perspective);
         $perspective->save();
-        
+
         $newData = $this->getAttributesWithRelatedAsPost();
         $newData['ParticipantPerspective'] = $perspective->attributes;
         $this->loadAll($newData); 
@@ -95,6 +95,6 @@ class Participant extends \yii\db\ActiveRecord
      */
     public function getParticipantPerspective()
     {
-        return $this->hasOne(ParticipantPerspective::className(), ['participant_id' => 'id']);
+        return $this->hasOne(ParticipantPerspective::className(), ['participant_id' => 'id'])->orderBy('id desc');
     }
 }
