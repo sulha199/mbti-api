@@ -7,8 +7,8 @@ use app\models\Participant;
 use app\models\ParticipantPerspective;
 
 class ParticipantController extends \yii\rest\ActiveController
-
 {
+    use CorsUtil;
     public $modelClass = 'app\models\Participant';
 
     public function actionSubmit() {
