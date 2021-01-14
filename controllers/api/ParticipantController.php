@@ -21,7 +21,9 @@ class ParticipantController extends \yii\rest\ActiveController
             $perspective = $model->calculatePerspectiveFromAnswers();
             $model->link('participantPerspectives', $perspective);
             $perspective->save();
-            return $model->getAttributesWithRelated();
+            $response = $model->getAttributesWithRelated();
+            $response['participantPerspectives'] = [ $perspective->attributes ];
+            return $response;
         }   
     }
 
