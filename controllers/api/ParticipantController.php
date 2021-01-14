@@ -27,8 +27,8 @@ class ParticipantController extends \yii\rest\ActiveController
         }   
     }
 
-    public function actionPerspective(int $id) {
-        $model = ParticipantPerspective::findOne([ 'participant_id' => $id ]);
-        return $model;
+    public function actionPerspective(string $email) {
+        $model = Participant::find()->where([ 'email' => $email])->orderBy('id desc')->with('participantPerspectives')->one();
+        return $model->getAttributesWithRelated();
     }
 }
