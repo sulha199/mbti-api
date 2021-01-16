@@ -4,7 +4,6 @@ namespace app\controllers\api;
 
 use Yii;
 use app\models\Participant;
-use app\models\ParticipantPerspective;
 
 class ParticipantController extends \yii\rest\ActiveController
 {
