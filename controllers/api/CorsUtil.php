@@ -14,7 +14,7 @@ trait CorsUtil {
             'class' => Cors::class,
             'cors' => [
                 'Origin' => ['*'],
-                'Access-Control-Request-Method' => [ 'GET' ],
+                'Access-Control-Request-Method' => [ 'GET', 'POST'],
                 'Access-Control-Allow-Headers' => ['content-type'],
                 'Access-Control-Request-Headers' => ['*'],
             ],
