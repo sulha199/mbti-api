@@ -16,9 +16,15 @@ class ParticipantController extends \yii\rest\ActiveController
 
         if (
             $model->loadAll(Yii::$app->request->post()) 
-            && $model->saveAll()
         ) {
-            return $model->getAttributesWithRelated();
+            if ($model->saveAll()) {
+                return $model->getAttributesWithRelated();
+            } else {
+                $response = Yii::$app->response;
+                $response->data = $model->errors;
+                $response->statusCode = 500;
+                return $response;
+            }
         }   
     }
 
