@@ -129,6 +129,7 @@ class ParticipantTest extends \Codeception\Test\Unit
                 }
             }
             $perspective = $participant->calculatePerspectiveFromAnswers();
+            $perspective->beforeSave(true);
             expect(count($participant->participantAnswers))->equals(10);
             expect($perspective->summary)->equals($case->Result);
         }
