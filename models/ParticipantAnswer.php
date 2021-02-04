@@ -33,6 +33,7 @@ class ParticipantAnswer extends \yii\db\ActiveRecord
         return [
             [['participant_id', 'question_id', 'score'], 'required'],
             [['participant_id', 'question_id', 'score'], 'integer'],
+            [['score'], 'integer', 'min' => 1, 'max' => 7 ],
             [['participant_id'], 'exist', 'skipOnError' => true, 'targetClass' => Participant::className(), 'targetAttribute' => ['participant_id' => 'id']],
             [['question_id'], 'exist', 'skipOnError' => true, 'targetClass' => Question::className(), 'targetAttribute' => ['question_id' => 'id']],
         ];
