@@ -118,7 +118,6 @@ class ParticipantTest extends \Codeception\Test\Unit
             $participant = new Participant;
             $participant->email = 'aaa@email.com';
             $participant->save();
-            $answerString = '';
             foreach ($case as $label => $value) {
                 if (str_contains($label, 'question')) {
                     $question_id = str_replace('question', '', $label);
@@ -129,6 +128,8 @@ class ParticipantTest extends \Codeception\Test\Unit
                 }
             }
             $perspective = $participant->calculatePerspectiveFromAnswers();
+            $perspective->beforeSave(true);
+            
             expect(count($participant->participantAnswers))->equals(10);
             expect($perspective->summary)->equals($case->Result);
         }
