@@ -1,25 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.0.3
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Waktu pembuatan: 16 Jan 2021 pada 16.46
--- Versi server: 10.4.14-MariaDB
--- Versi PHP: 7.4.11
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `mbti`
---
 
 -- --------------------------------------------------------
 
@@ -55,14 +33,14 @@ CREATE TABLE `participant_answer` (
 CREATE TABLE `participant_perspective` (
   `id` int(11) NOT NULL,
   `participant_id` int(11) NOT NULL,
-  `ei_i` int(11) NOT NULL DEFAULT 0,
-  `ei_e` int(11) NOT NULL DEFAULT 0,
-  `sn_s` int(11) NOT NULL DEFAULT 0,
-  `sn_n` int(11) NOT NULL DEFAULT 0,
-  `tf_t` int(11) NOT NULL DEFAULT 0,
-  `tf_f` int(11) NOT NULL DEFAULT 0,
-  `jp_j` int(11) NOT NULL DEFAULT 0,
-  `jp_p` int(11) NOT NULL DEFAULT 0,
+  `ei_i` int(11) DEFAULT '0',
+  `ei_e` int(11) DEFAULT '0',
+  `sn_s` int(11) DEFAULT '0',
+  `sn_n` int(11) DEFAULT '0',
+  `tf_t` int(11) DEFAULT '0',
+  `tf_f` int(11) DEFAULT '0',
+  `jp_j` int(11) DEFAULT '0',
+  `jp_p` int(11) DEFAULT '0',
   `summary` varchar(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -176,6 +154,3 @@ ALTER TABLE `participant_perspective`
   ADD CONSTRAINT `participant_perspective_ibfk_1` FOREIGN KEY (`participant_id`) REFERENCES `participant` (`id`);
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
